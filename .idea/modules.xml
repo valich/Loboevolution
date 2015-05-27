@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Common/src/main/Common.iml" filepath="$PROJECT_DIR$/Common/src/main/Common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/HTML_Renderer/src/main/HTML_Renderer.iml" filepath="$PROJECT_DIR$/HTML_Renderer/src/main/HTML_Renderer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/IzPack_RegistryPanel/src/main/IzPack_RegistryPanel.iml" filepath="$PROJECT_DIR$/IzPack_RegistryPanel/src/main/IzPack_RegistryPanel.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Platform_Core/src/main/Platform_Core.iml" filepath="$PROJECT_DIR$/Platform_Core/src/main/Platform_Core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Platform_Public_API/src/main/Platform_Public_API.iml" filepath="$PROJECT_DIR$/Platform_Public_API/src/main/Platform_Public_API.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Primary_Extension/src/main/Primary_Extension.iml" filepath="$PROJECT_DIR$/Primary_Extension/src/main/Primary_Extension.iml" />
+      <module fileurl="file://$PROJECT_DIR$/parser/src/main/parser.iml" filepath="$PROJECT_DIR$/parser/src/main/parser.iml" />
+    </modules>
+  </component>
+</project>
