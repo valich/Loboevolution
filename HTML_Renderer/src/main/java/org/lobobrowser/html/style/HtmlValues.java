@@ -843,7 +843,11 @@ public class HtmlValues {
         String tentativeUri = unquoteAndUnescape(quotedUri);
         try {
             return Urls.createURL(null, tentativeUri);
-        } catch (MalformedURLException | UnsupportedEncodingException mfu) {
+        } catch (MalformedURLException mfu) {
+            logger.log(Level.WARNING, "Unable to create URL for URI=["
+                    + tentativeUri + "].", mfu);
+            return null;
+        } catch (UnsupportedEncodingException mfu) {
             logger.log(Level.WARNING, "Unable to create URL for URI=["
                     + tentativeUri + "].", mfu);
             return null;

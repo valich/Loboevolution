@@ -37,6 +37,9 @@ public class Executor {
     /** The Constant logger. */
     private static final Logger logger = Logger.getLogger(Executor.class
             .getName());
+    static {
+        logger.setLevel(Level.SEVERE);
+    }
 
     /**
      * This method should be invoked instead of <code>Context.enter</code>.

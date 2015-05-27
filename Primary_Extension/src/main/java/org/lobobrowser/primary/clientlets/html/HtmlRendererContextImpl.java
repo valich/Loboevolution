@@ -20,7 +20,6 @@ import java.awt.event.MouseEvent;
 import java.lang.ref.WeakReference;
 import java.net.URL;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Properties;
 import java.util.WeakHashMap;
 import java.util.logging.Level;
@@ -586,8 +585,11 @@ public class HtmlRendererContextImpl implements HtmlRendererContext {
     }
     
     @Override
-    public void setCursor(Optional<Cursor> cursorOpt) {
-        Cursor cursor = cursorOpt.orElse(Cursor.getDefaultCursor());
+    public void setCursor(Cursor cursorOpt) {
+        Cursor cursor = cursorOpt;
+        if (cursor == null) {
+            cursor = Cursor.getDefaultCursor();
+        }
         htmlPanel.setCursor(cursor);
     }
 }

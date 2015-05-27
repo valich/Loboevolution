@@ -20,7 +20,6 @@ package org.lobobrowser.html;
 import java.awt.Cursor;
 import java.awt.event.MouseEvent;
 import java.net.URL;
-import java.util.Optional;
 
 import org.lobobrowser.html.w3c.HTMLAnchorElement;
 import org.lobobrowser.html.w3c.HTMLCollection;
@@ -422,5 +421,5 @@ public interface HtmlRendererContext {
       *
       * @param cursorOpt the new cursor
       */
-     void setCursor(Optional<Cursor> cursorOpt);
+     void setCursor(Cursor cursorOpt);
 }

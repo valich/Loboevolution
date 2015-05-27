@@ -100,7 +100,7 @@ RenderableContainer, ClipboardOwner {
             .getName());
 
     /** The Constant loggableInfo. */
-    private static final boolean loggableInfo = logger.isLoggable(Level.INFO);
+    private static final boolean loggableInfo = false;
 
     /** The frame context. */
     protected final FrameContext frameContext;

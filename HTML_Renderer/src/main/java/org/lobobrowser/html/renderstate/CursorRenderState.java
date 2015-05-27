@@ -21,7 +21,6 @@
 package org.lobobrowser.html.renderstate;
 
 import java.awt.Cursor;
-import java.util.Optional;
 
 import org.lobobrowser.html.style.RenderStateDelegator;
 
@@ -36,7 +35,7 @@ public class CursorRenderState extends RenderStateDelegator{
      * @param prevRenderState the prev render state
      * @param cursor the cursor
      */
-    public CursorRenderState(RenderState prevRenderState, Optional<Cursor> cursor) {
+    public CursorRenderState(RenderState prevRenderState, Cursor cursor) {
         super(prevRenderState);
         prevRenderState.setCursor(cursor);
     }

@@ -130,6 +130,9 @@ public class HTMLDocumentImpl extends DOMNodeImpl implements HTMLDocument,
     /** The Constant logger. */
     private static final Logger logger = Logger
             .getLogger(HTMLDocumentImpl.class.getName());
+    static {
+        logger.setLevel(Level.SEVERE);
+    }
 
     /** The factory. */
     private final ElementFactory factory;
@@ -763,24 +766,23 @@ public class HTMLDocumentImpl extends DOMNodeImpl implements HTMLDocument,
     @Override
     public Event createEvent(String eventType) throws DOMException {
 
-        switch (eventType) {
-        case HtmlEventProperties.EVENT:
+        if (eventType.equals(HtmlEventProperties.EVENT)) {
             return new EventImpl();
-        case HtmlEventProperties.UIEVENT:
+        } else if (eventType.equals(HtmlEventProperties.UIEVENT)) {
             return new UIEventImpl();
-        case HtmlEventProperties.MOUSEEVENT:
+        } else if (eventType.equals(HtmlEventProperties.MOUSEEVENT)) {
             return new MouseEventImpl();
-        case HtmlEventProperties.MUTATIONEVENT:
+        } else if (eventType.equals(HtmlEventProperties.MUTATIONEVENT)) {
             return new MutationEventImpl();
-        case HtmlEventProperties.MUTATIONNAMEEVENT:
+        } else if (eventType.equals(HtmlEventProperties.MUTATIONNAMEEVENT)) {
             return new MutationNameEventImpl();
-        case HtmlEventProperties.TEXTEVENT:
+        } else if (eventType.equals(HtmlEventProperties.TEXTEVENT)) {
             return new TextEventImpl();
-        case HtmlEventProperties.KEYBOARDEVENT:
+        } else if (eventType.equals(HtmlEventProperties.KEYBOARDEVENT)) {
             return new KeyboardEventImpl();
-        case HtmlEventProperties.CUSTOMEVENT:
+        } else if (eventType.equals(HtmlEventProperties.CUSTOMEVENT)) {
             return new CustomEventImpl();
-        default:
+        } else {
             return new EventImpl();
         }
 
@@ -999,7 +1001,17 @@ public class HTMLDocumentImpl extends DOMNodeImpl implements HTMLDocument,
             String baseURI = this.getBaseURI();
             URL documentURL = baseURI == null ? null : new URL(baseURI);
             return Urls.createURL(documentURL, uri);
-        } catch (MalformedURLException | UnsupportedEncodingException mfu) {
+        } catch (MalformedURLException mfu) {
+            // Try agan, without the baseURI.
+            try {
+                return new URL(uri);
+            } catch (MalformedURLException mfu2) {
+                logger.log(Level.WARNING, "Unable to create URL for URI=["
+                        + uri + "], with base=[" + this.getBaseURI() + "].",
+                        mfu);
+                return null;
+            }
+        } catch (UnsupportedEncodingException mfu) {
             // Try agan, without the baseURI.
             try {
                 return new URL(uri);
@@ -1117,7 +1129,9 @@ public class HTMLDocumentImpl extends DOMNodeImpl implements HTMLDocument,
                 ssa = new StyleSheetAggregator(this);
                 try {
                     ssa.addStyleSheets(this.styleSheets);
-                } catch (MalformedURLException | UnsupportedEncodingException mfu) {
+                } catch (MalformedURLException mfu) {
+                    logger.log(Level.WARNING, "getStyleSheetAggregator()", mfu);
+                } catch (UnsupportedEncodingException mfu) {
                     logger.log(Level.WARNING, "getStyleSheetAggregator()", mfu);
                 }
                 this.styleSheetAggregator = ssa;
@@ -2393,41 +2407,38 @@ public class HTMLDocumentImpl extends DOMNodeImpl implements HTMLDocument,
    public void addEventListener(String script, Function function) {
 
         String key = script.toLowerCase();
-        
-        switch (key) {
-        case HtmlJsAttributeProperties.CLICK:
-            setOnclick(function);
-            break;
-        case HtmlJsAttributeProperties.DBLCLICK:
-            setOndblclick(function);
-            break;
-        case HtmlJsAttributeProperties.MOUSEUP:
-            setOnmouseup(function);
-            break;
-        case HtmlJsAttributeProperties.MOUSEDOWN:
-            setOnmousedown(function);
-            break;
-        case HtmlJsAttributeProperties.MOUSEOVER:
-            setOnmouseover(function);
-            break;
-        case HtmlJsAttributeProperties.MOUSEOUT:
-            setOnmouseout(function);
-            break;
-        case HtmlJsAttributeProperties.KEYPRESS:
-            setOnkeypress(function);
-            break;
-        case HtmlJsAttributeProperties.KEYUP:
-            setOnkeyup(function);
-            break;
-        case HtmlJsAttributeProperties.KEYDOWN:
-            setOnkeydown(function);
-            break;
-        case HtmlJsAttributeProperties.LOAD:
-            setOnloadHandler(function);
-            break;
 
-        default:
-            break;
+        if (key.equals(HtmlJsAttributeProperties.CLICK)) {
+            setOnclick(function);
+
+        } else if (key.equals(HtmlJsAttributeProperties.DBLCLICK)) {
+            setOndblclick(function);
+
+        } else if (key.equals(HtmlJsAttributeProperties.MOUSEUP)) {
+            setOnmouseup(function);
+
+        } else if (key.equals(HtmlJsAttributeProperties.MOUSEDOWN)) {
+            setOnmousedown(function);
+
+        } else if (key.equals(HtmlJsAttributeProperties.MOUSEOVER)) {
+            setOnmouseover(function);
+
+        } else if (key.equals(HtmlJsAttributeProperties.MOUSEOUT)) {
+            setOnmouseout(function);
+
+        } else if (key.equals(HtmlJsAttributeProperties.KEYPRESS)) {
+            setOnkeypress(function);
+
+        } else if (key.equals(HtmlJsAttributeProperties.KEYUP)) {
+            setOnkeyup(function);
+
+        } else if (key.equals(HtmlJsAttributeProperties.KEYDOWN)) {
+            setOnkeydown(function);
+
+        } else if (key.equals(HtmlJsAttributeProperties.LOAD)) {
+            setOnloadHandler(function);
+
+        } else {
         }
 
     }
@@ -2435,41 +2446,38 @@ public class HTMLDocumentImpl extends DOMNodeImpl implements HTMLDocument,
     @Override
     public void removeEventListener(String script, Function function) {
        String key = script.toLowerCase();
-        
-			      switch (key) {
-        case HtmlJsAttributeProperties.CLICK:
-            setOnclick(null);
-            break;
-        case HtmlJsAttributeProperties.DBLCLICK:
-            setOndblclick(null);
-            break;
-        case HtmlJsAttributeProperties.MOUSEUP:
-            setOnmouseup(null);
-            break;
-        case HtmlJsAttributeProperties.MOUSEDOWN:
-            setOnmousedown(null);
-            break;
-        case HtmlJsAttributeProperties.MOUSEOVER:
-            setOnmouseover(null);
-            break;
-        case HtmlJsAttributeProperties.MOUSEOUT:
-            setOnmouseout(null);
-            break;
-        case HtmlJsAttributeProperties.KEYPRESS:
-            setOnkeypress(null);
-            break;
-        case HtmlJsAttributeProperties.KEYUP:
-            setOnkeyup(null);
-            break;
-        case HtmlJsAttributeProperties.KEYDOWN:
-            setOnkeydown(null);
-            break;
-        case HtmlJsAttributeProperties.LOAD:
-            setOnloadHandler(null);
-            break;
 
-        default:
-            break;
+        if (key.equals(HtmlJsAttributeProperties.CLICK)) {
+            setOnclick(null);
+
+        } else if (key.equals(HtmlJsAttributeProperties.DBLCLICK)) {
+            setOndblclick(null);
+
+        } else if (key.equals(HtmlJsAttributeProperties.MOUSEUP)) {
+            setOnmouseup(null);
+
+        } else if (key.equals(HtmlJsAttributeProperties.MOUSEDOWN)) {
+            setOnmousedown(null);
+
+        } else if (key.equals(HtmlJsAttributeProperties.MOUSEOVER)) {
+            setOnmouseover(null);
+
+        } else if (key.equals(HtmlJsAttributeProperties.MOUSEOUT)) {
+            setOnmouseout(null);
+
+        } else if (key.equals(HtmlJsAttributeProperties.KEYPRESS)) {
+            setOnkeypress(null);
+
+        } else if (key.equals(HtmlJsAttributeProperties.KEYUP)) {
+            setOnkeyup(null);
+
+        } else if (key.equals(HtmlJsAttributeProperties.KEYDOWN)) {
+            setOnkeydown(null);
+
+        } else if (key.equals(HtmlJsAttributeProperties.LOAD)) {
+            setOnloadHandler(null);
+
+        } else {
         }
     }
 

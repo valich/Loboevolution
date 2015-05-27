@@ -1230,34 +1230,31 @@ public class HTMLAbstractUIElement extends HTMLElementImpl {
 
         String key = script.toLowerCase();
 
-        switch (key) {
-        case HtmlJsAttributeProperties.CLICK:
+        if (key.equals(HtmlJsAttributeProperties.CLICK)) {
             setOnclick(function);
-            break;
-        case HtmlJsAttributeProperties.DBLCLICK:
-            setOndblclick(function);
-            break;
-        case HtmlJsAttributeProperties.MOUSEUP:
-            setOnmouseup(function);
-            break;
-        case HtmlJsAttributeProperties.MOUSEDOWN:
-            setOnmousedown(function);
-            break;
-        case HtmlJsAttributeProperties.KEYPRESS:
-            setOnkeypress(function);
-            break;
-        case HtmlJsAttributeProperties.KEYUP:
-            setOnkeyup(function);
-            break;
-        case HtmlJsAttributeProperties.KEYDOWN:
-            setOnkeydown(function);
-            break;
-        case HtmlJsAttributeProperties.LOAD:
-            setOnload(function);
-            break;
 
-        default:
-            break;
+        } else if (key.equals(HtmlJsAttributeProperties.DBLCLICK)) {
+            setOndblclick(function);
+
+        } else if (key.equals(HtmlJsAttributeProperties.MOUSEUP)) {
+            setOnmouseup(function);
+
+        } else if (key.equals(HtmlJsAttributeProperties.MOUSEDOWN)) {
+            setOnmousedown(function);
+
+        } else if (key.equals(HtmlJsAttributeProperties.KEYPRESS)) {
+            setOnkeypress(function);
+
+        } else if (key.equals(HtmlJsAttributeProperties.KEYUP)) {
+            setOnkeyup(function);
+
+        } else if (key.equals(HtmlJsAttributeProperties.KEYDOWN)) {
+            setOnkeydown(function);
+
+        } else if (key.equals(HtmlJsAttributeProperties.LOAD)) {
+            setOnload(function);
+
+        } else {
         }
 
     }
@@ -1271,34 +1268,31 @@ public class HTMLAbstractUIElement extends HTMLElementImpl {
     public void removeEventListener(String script, Function function) {
         String key = script.toLowerCase();
 
-        switch (key) {
-        case HtmlJsAttributeProperties.CLICK:
+        if (key.equals(HtmlJsAttributeProperties.CLICK)) {
             setOnclick(null);
-            break;
-        case HtmlJsAttributeProperties.DBLCLICK:
-            setOndblclick(null);
-            break;
-        case HtmlJsAttributeProperties.MOUSEUP:
-            setOnmouseup(null);
-            break;
-        case HtmlJsAttributeProperties.MOUSEDOWN:
-            setOnmousedown(null);
-            break;
-        case HtmlJsAttributeProperties.KEYPRESS:
-            setOnkeypress(null);
-            break;
-        case HtmlJsAttributeProperties.KEYUP:
-            setOnkeyup(null);
-            break;
-        case HtmlJsAttributeProperties.KEYDOWN:
-            setOnkeydown(null);
-            break;
-        case HtmlJsAttributeProperties.LOAD:
-            setOnload(null);
-            break;
 
-        default:
-            break;
+        } else if (key.equals(HtmlJsAttributeProperties.DBLCLICK)) {
+            setOndblclick(null);
+
+        } else if (key.equals(HtmlJsAttributeProperties.MOUSEUP)) {
+            setOnmouseup(null);
+
+        } else if (key.equals(HtmlJsAttributeProperties.MOUSEDOWN)) {
+            setOnmousedown(null);
+
+        } else if (key.equals(HtmlJsAttributeProperties.KEYPRESS)) {
+            setOnkeypress(null);
+
+        } else if (key.equals(HtmlJsAttributeProperties.KEYUP)) {
+            setOnkeyup(null);
+
+        } else if (key.equals(HtmlJsAttributeProperties.KEYDOWN)) {
+            setOnkeydown(null);
+
+        } else if (key.equals(HtmlJsAttributeProperties.LOAD)) {
+            setOnload(null);
+
+        } else {
         }
     }
 

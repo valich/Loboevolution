@@ -21,7 +21,6 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.FontMetrics;
-import java.util.Optional;
 
 import org.lobobrowser.html.style.BackgroundInfo;
 import org.lobobrowser.html.style.BorderInfo;
@@ -391,13 +390,13 @@ public interface RenderState {
      *
      * @return the cursor
      */
-    Optional<Cursor> getCursor();
+    Cursor getCursor();
     
     /**
      * Gets the cursor.
      *
      * @return the cursor
      */
-    void setCursor(Optional<Cursor> cursor);
+    void setCursor(Cursor cursor);
     
 }

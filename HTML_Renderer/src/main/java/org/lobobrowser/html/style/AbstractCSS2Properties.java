@@ -3416,7 +3416,13 @@ implements CSS2Properties {
                                     + HtmlValues.quoteAndEscape(Urls.createURL(
                                             styleUrl, tentativeUri)
                                             .toExternalForm()) + ")";
-                        } catch (MalformedURLException | UnsupportedEncodingException mfu) {
+                        } catch (MalformedURLException mfu) {
+                            logger.log(Level.WARNING,
+                                    "Unable to create URL for URI=["
+                                            + tentativeUri + "], with base=["
+                                            + baseHref + "].", mfu);
+                            finalValue = newValue;
+                        } catch (UnsupportedEncodingException mfu) {
                             logger.log(Level.WARNING,
                                     "Unable to create URL for URI=["
                                             + tentativeUri + "], with base=["

@@ -103,7 +103,7 @@ implements HTMLCollection {
         if (this.itemsByName == null) {
             ArrayList<DOMNodeImpl> descendents = this.rootNode.getDescendents(
                     this.nodeFilter, this.nestIntoMatchingNodes);
-            this.itemsByIndex = descendents == null ? Collections.emptyList()
+            this.itemsByIndex = descendents == null ? Collections.<DOMNodeImpl>emptyList()
                     : descendents;
             int size = descendents == null ? 0 : descendents.size();
             Map<String, DOMElementImpl> itemsByName = new HashMap<String, DOMElementImpl>(

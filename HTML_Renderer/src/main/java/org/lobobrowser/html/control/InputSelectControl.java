@@ -23,11 +23,7 @@ package org.lobobrowser.html.control;
 import java.awt.ComponentOrientation;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
@@ -52,13 +48,13 @@ public class InputSelectControl extends BaseInputControl {
     private static final long serialVersionUID = 1L;
 
     /** The combo box. */
-    private final JComboBox<OptionItem> comboBox;
+    private final JComboBox comboBox;
 
     /** The list. */
-    private final JList<OptionItem> list;
+    private final JList list;
 
     /** The list model. */
-    private final DefaultListModel<OptionItem> listModel;
+    private final DefaultListModel listModel;
 
     /** The Constant STATE_NONE. */
     private static final int STATE_NONE = 0;
@@ -87,7 +83,7 @@ public class InputSelectControl extends BaseInputControl {
     public InputSelectControl(final HTMLBaseInputElement modelNode) {
         super(modelNode);
         this.setLayout(WrapperLayout.getInstance());
-        final JComboBox<OptionItem> comboBox = new JComboBox<OptionItem>();
+        final JComboBox comboBox = new JComboBox();
         comboBox.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -120,8 +116,8 @@ public class InputSelectControl extends BaseInputControl {
                 }
             }
         });
-        final DefaultListModel<OptionItem> listModel = new DefaultListModel<OptionItem>();
-        final JList<OptionItem> list = new JList<OptionItem>(listModel);
+        final DefaultListModel listModel = new DefaultListModel();
+        final JList list = new JList(listModel);
         this.listModel = listModel;
         list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         list.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
@@ -133,7 +129,7 @@ public class InputSelectControl extends BaseInputControl {
                     try {
                         int modelSize = listModel.getSize();
                         for (int i = 0; i < modelSize; i++) {
-                            OptionItem item = listModel.get(i);
+                            OptionItem item = (OptionItem) listModel.get(i);
                             if (item != null) {
                                 boolean oldIsSelected = item.isSelected();
                                 boolean newIsSelected = list.isSelectedIndex(i);
@@ -192,7 +188,7 @@ public class InputSelectControl extends BaseInputControl {
         try {
             HTMLOptionsCollection optionElements = selectElement.getOptions();
             if (this.state == STATE_COMBO) {
-                JComboBox<OptionItem> comboBox = this.comboBox;
+                JComboBox comboBox = this.comboBox;
                 // First determine current selected option
                 HTMLOptionElement priorSelectedOption = null;
                 int priorIndex = selectElement.getSelectedIndex();
@@ -245,11 +241,11 @@ public class InputSelectControl extends BaseInputControl {
                     comboBox.setSelectedItem(firstItem);
                 }
             } else {
-                JList<OptionItem> list = this.list;
+                JList list = this.list;
                 Collection<Integer> defaultSelectedIndexes = null;
                 Collection<Integer> selectedIndexes = null;
                 OptionItem firstItem = null;
-                DefaultListModel<OptionItem> listModel = this.listModel;
+                DefaultListModel listModel = this.listModel;
                 listModel.clear();
                 int numOptions = optionElements.getLength();
                 for (int index = 0; index < numOptions; index++) {
@@ -319,7 +315,7 @@ public class InputSelectControl extends BaseInputControl {
             OptionItem item = (OptionItem) this.comboBox.getSelectedItem();
             return item == null ? null : item.getValue();
         } else {
-            OptionItem item = this.list.getSelectedValue();
+            OptionItem item = (OptionItem) this.list.getSelectedValue();
             return item == null ? null : item.getValue();
         }
     }
@@ -350,7 +346,7 @@ public class InputSelectControl extends BaseInputControl {
         try {
             if (!this.inSelectionEvent) {
                 if (this.state == STATE_COMBO) {
-                    JComboBox<OptionItem> comboBox = this.comboBox;
+                    JComboBox comboBox = this.comboBox;
                     if (comboBox.getSelectedIndex() != value) {
                         // This check is done to avoid an infinite recursion
                         // on ItemListener.
@@ -360,7 +356,7 @@ public class InputSelectControl extends BaseInputControl {
                         }
                     }
                 } else {
-                    JList<OptionItem> list = this.list;
+                    JList list = this.list;
                     int[] selectedIndices = list.getSelectedIndices();
                     if ((selectedIndices == null)
                             || (selectedIndices.length != 1)
@@ -417,7 +413,7 @@ public class InputSelectControl extends BaseInputControl {
             OptionItem item = (OptionItem) this.comboBox.getSelectedItem();
             return item == null ? null : new String[] {item.getValue()};
         } else {
-            List<OptionItem> values = this.list.getSelectedValuesList();
+            List<OptionItem> values = Arrays.asList((OptionItem[])this.list.getSelectedValues());
             if (values == null) {
                 return null;
             }

@@ -17,8 +17,6 @@ package org.lobobrowser.http;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
-import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -724,7 +722,7 @@ public class Request extends AbstractBean {
      *             the exception
      */
     private static String base64Encode(String s) throws Exception {
-        return new String(Base64.getEncoder().encode(s.getBytes(StandardCharsets.UTF_8)));
+        return "";
     }
 
     /**
@@ -737,7 +735,6 @@ public class Request extends AbstractBean {
      *             the exception
      */
     private static String base64Decode(String s) throws Exception {
-        byte[] asBytes = Base64.getDecoder().decode(s);
-        return new String(new String(asBytes, "utf-8"));
+        return "";
     }
 }

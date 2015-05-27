@@ -22,11 +22,9 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -122,8 +120,7 @@ public class Urls {
             throws MalformedURLException, UnsupportedEncodingException {
         
         if (relativeUrl.contains("base64")) {
-            relativeUrl = new String(Base64.getEncoder().encode(
-                    relativeUrl.getBytes(StandardCharsets.UTF_8)));
+            throw new UnsupportedOperationException();
         }
         if (relativeUrl.contains("javascript:void")) {
             return null;
@@ -237,7 +234,42 @@ public class Urls {
                 }
             }
             finalURL = createURL(baseURL, spec);
-        } catch (MalformedURLException | UnsupportedEncodingException mfu) {
+        } catch (MalformedURLException mfu) {
+            spec = spec.trim();
+            int idx = spec.indexOf(':');
+            if (idx == -1) {
+                int slashIdx = spec.indexOf('/');
+                if (slashIdx == 0) {
+                    // A file, absolute
+                    finalURL = new URL("file:" + spec);
+                } else {
+                    if (slashIdx == -1) {
+                        // No slash, no colon, must be host.
+                        finalURL = new URL(baseURL, "http://" + spec);
+                    } else {
+                        String possibleHost = spec.substring(0, slashIdx)
+                                .toLowerCase();
+                        if (Domains.isLikelyHostName(possibleHost)) {
+                            finalURL = new URL(baseURL, "http://" + spec);
+                        } else {
+                            finalURL = new URL(baseURL, "file:" + spec);
+                        }
+                    }
+                }
+            } else {
+                if (idx == 1) {
+                    // Likely a drive
+                    finalURL = new URL(baseURL, "file:" + spec);
+                } else {
+                    try {
+                        throw mfu;
+                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        logger.severe(e.getMessage());
+                    }
+                }
+            }
+        } catch (UnsupportedEncodingException mfu) {
             spec = spec.trim();
             int idx = spec.indexOf(':');
             if (idx == -1) {

@@ -43,6 +43,9 @@ public class HtmlController {
     /** The Constant logger. */
     private static final Logger logger = Logger.getLogger(HtmlController.class
             .getName());
+    static {
+        logger.setLevel(Level.SEVERE);
+    }
 
     /** The Constant instance. */
     private static final HtmlController instance = new HtmlController();

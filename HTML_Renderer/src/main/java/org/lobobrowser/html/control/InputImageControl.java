@@ -105,10 +105,12 @@ ImageListener {
 				SVGRasterizer r = new SVGRasterizer(u);
 				image = r.bufferedImageToImage();
 				
-			} catch (MalformedURLException | TranscoderException e1) {
+			} catch (MalformedURLException e1) {
+				e1.printStackTrace();
+			} catch (TranscoderException e1) {
 				e1.printStackTrace();
 			}
-		}
+        }
     }
 
     /*

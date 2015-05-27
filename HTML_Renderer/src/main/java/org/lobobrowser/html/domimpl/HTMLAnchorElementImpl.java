@@ -18,7 +18,6 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Optional;
 import java.util.logging.Logger;
 
 import org.lobobrowser.html.HtmlAttributeProperties;
@@ -209,7 +208,7 @@ public class HTMLAnchorElementImpl extends HTMLAbstractUIElement implements HTML
             prevRenderState = new ColorRenderState(prevRenderState,
                     this.getLinkColor());
             prevRenderState = new CursorRenderState(prevRenderState,
-                    Optional.of(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR)));
+                    Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         }
         return super.createRenderState(prevRenderState);
     }

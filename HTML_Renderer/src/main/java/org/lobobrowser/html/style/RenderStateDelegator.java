@@ -18,7 +18,6 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.FontMetrics;
-import java.util.Optional;
 
 import org.lobobrowser.html.renderstate.RenderState;
 
@@ -209,12 +208,12 @@ public abstract class RenderStateDelegator implements RenderState {
     }
     
     @Override
-    public Optional<Cursor> getCursor() {
+    public Cursor getCursor() {
         return this.delegate.getCursor();
       }
     
     @Override
-    public void setCursor(Optional<Cursor> cursor) {
+    public void setCursor(Cursor cursor) {
         this.delegate.setCursor(cursor);
       }
 }

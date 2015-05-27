@@ -27,7 +27,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 import java.util.StringTokenizer;
 
@@ -112,7 +111,7 @@ public class StyleSheetRenderState implements RenderState {
     /** The i highlight. */
     private boolean iHighlight;
     
-    private Optional<Cursor> cursor;
+    private Cursor cursor;
 
     /** The i background info. */
     protected BackgroundInfo iBackgroundInfo = INVALID_BACKGROUND_INFO;
@@ -1348,15 +1347,15 @@ public class StyleSheetRenderState implements RenderState {
     }
     
     @Override
-    public void setCursor(Optional<Cursor> cursor) {
+    public void setCursor(Cursor cursor) {
        this.cursor = cursor;
         
     }
 
    @Override
-    public Optional<Cursor> getCursor() {
+    public Cursor getCursor() {
 
-        Optional<Cursor> prevCursorOpt = Optional.empty();
+        Cursor prevCursorOpt = null;
         AbstractCSS2Properties props = this.getCssProperties();
 
         if (this.cursor != null) {
@@ -1372,23 +1371,17 @@ public class StyleSheetRenderState implements RenderState {
             } else {
                 String cursorTL = cursor.toLowerCase();
                 if ("default".equals(cursorTL)) {
-                    return Optional.of(Cursor
-                            .getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+                    return Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR);
                 } else if ("pointer".equals(cursorTL)) {
-                    return Optional.of(Cursor
-                            .getPredefinedCursor(Cursor.HAND_CURSOR));
+                    return Cursor.getPredefinedCursor(Cursor.HAND_CURSOR);
                 } else if ("crosshair".equals(cursorTL)) {
-                    return Optional.of(Cursor
-                            .getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+                    return Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR);
                 } else if ("move".equals(cursorTL)) {
-                    return Optional.of(Cursor
-                            .getPredefinedCursor(Cursor.MOVE_CURSOR));
+                    return Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR);
                 } else if ("text".equals(cursorTL)) {
-                    return Optional.of(Cursor
-                            .getPredefinedCursor(Cursor.TEXT_CURSOR));
+                    return Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR);
                 } else if ("wait".equals(cursorTL)) {
-                    return Optional.of(Cursor
-                            .getPredefinedCursor(Cursor.WAIT_CURSOR));
+                    return Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR);
                 } else {
                     return prevCursorOpt;
                 }

@@ -25,7 +25,6 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
-import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -573,16 +572,16 @@ BoundableRenderable {
     }
     
     private static void resetCursorOnMouseOut(final ModelNode nodeStart, final ModelNode limit) {
-        Optional<Cursor> foundCursorOpt = Optional.empty();
+        Cursor foundCursorOpt = null;
         ModelNode node = limit;
         while (node != null) {
           if (node instanceof DOMNodeImpl) {
             final DOMNodeImpl uiElement = (DOMNodeImpl) node;
 
             final RenderState rs = uiElement.getRenderState();
-            final Optional<Cursor> cursorOpt = rs.getCursor();
+            final Cursor cursorOpt = rs.getCursor();
             foundCursorOpt = cursorOpt;
-            if (cursorOpt.isPresent()) {
+            if (cursorOpt != null) {
               break;
             }
 
@@ -608,14 +607,14 @@ BoundableRenderable {
               DOMNodeImpl uiElement = (DOMNodeImpl) node;
               HtmlRendererContext rcontext = uiElement.getHtmlRendererContext();
               RenderState rs = uiElement.getRenderState();
-              Optional<Cursor> cursorOpt = rs.getCursor();
-              if (cursorOpt.isPresent()) {
+              Cursor cursorOpt = rs.getCursor();
+              if (cursorOpt != null) {
                 rcontext.setCursor(cursorOpt);
                 break;
               } else {
                 if (node.getParentModelNode() == limit) {                    
                   if (renderable instanceof RWord || renderable instanceof RBlank) {
-                    rcontext.setCursor(Optional.of(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR)));
+                    rcontext.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
                   } 
                 }
               }

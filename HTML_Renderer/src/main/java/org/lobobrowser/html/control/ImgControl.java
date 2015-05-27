@@ -86,7 +86,7 @@ public class ImgControl extends BaseControl implements ImageListener {
      * @throws TranscoderException 
      * @throws IOException
      */
-    public ImgControl(HTMLImageElementImpl modelNode) {
+    public ImgControl(final HTMLImageElementImpl modelNode) {
         super(modelNode);
 
         align = modelNode.getAlign();
@@ -126,10 +126,12 @@ public class ImgControl extends BaseControl implements ImageListener {
 				SVGRasterizer r = new SVGRasterizer(u);
 				image = r.bufferedImageToImage();
 				
-			} catch (MalformedURLException | TranscoderException e1) {
+			} catch (MalformedURLException e1) {
+				e1.printStackTrace();
+			} catch (TranscoderException e1) {
 				e1.printStackTrace();
 			}
-		}
+        }
 
         if (modelNode.getHeight() > 0) {
             imageHeight = modelNode.getHeight();

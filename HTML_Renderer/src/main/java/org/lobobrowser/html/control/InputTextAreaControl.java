@@ -52,7 +52,7 @@ public class InputTextAreaControl extends BaseInputControl {
      * @param modelNode
      *            the model node
      */
-    public InputTextAreaControl(HTMLBaseInputElement modelNode) {
+    public InputTextAreaControl(final HTMLBaseInputElement modelNode) {
         super(modelNode);
         this.setLayout(WrapperLayout.getInstance());
         JTextAreaImpl widget = (JTextAreaImpl) this.createTextField();
